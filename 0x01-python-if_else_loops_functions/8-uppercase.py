@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 def uppercase(str):
     for ch in str:
         if ord('z') >= ord(ch) >= ord('a'):
