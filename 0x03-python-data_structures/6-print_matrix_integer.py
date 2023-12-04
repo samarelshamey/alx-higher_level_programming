@@ -1,10 +1,13 @@
 #!/usr/bin/python3
 def print_matrix_integer(matrix=[[]]):
     if not matrix:
-        return None
-    for line in matrix:
-        if len(line) == 0:
+        print()
+    else:
+        for row in range(len(matrix)):
+            for n in range(len(matrix[row])):
+                if n != len(matrix[row]) - 1:
+                    endspace = ' '
+                else:
+                    endspace = ''
+                print("{:d}".format(matrix[row][n]), end=endspace)
             print()
-        for n in range(len(line)):
-            print("{:d}".format(line[n]),
-                    end="\n" if n is len(line) - 1 else " ")
