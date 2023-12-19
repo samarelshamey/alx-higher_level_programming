@@ -4,9 +4,10 @@ Square = __import__('4-square').Square
 
 def my_print(self):
     """print a square"""
-    for i in range(self.size):
-        for j in range(self.size):
-            if self.size = 0:
-                print()
-            else:
-                print("#", end="\n")
+    if self.__size == 0:
+        print()
+    else:
+        for i in range(self.__size):
+            for j in range(self.__size):
+                print("#", end="")
+            print()
