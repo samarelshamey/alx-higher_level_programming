@@ -60,16 +60,15 @@ class Square:
             for _ in range(self.__position[1]):
                 print()
             for _ in range(self.__size):
-                print(" " * self.__position[0], end="")
-                print("#" * self.__size)
+                print(" " * self.__position[0] + "#" * self.__size)
 
     def __str__(self):
-        """define print() square"""
-        if self.__size != 0:
-            [print("") for n in range(0, self.__position[1])]
-        for n in range(0, self.__size):
-            [print(" ", end="") for i in range(0, self._position[0])]
-            [print("#", end=="") for j in range(0, self.__size)]
-        if n != self.__size - 1:
-            print("")
-            return ("")
+        """define print() suqare"""
+        res = ""
+        if self.__size == 0:
+            return res
+        for _ in range(self.__position[1]):
+            res += "\n"
+        for _ in range(self.__size):
+            res += " " * self.__position[0] + "#" * self.__size + "\n"
+        return res[:-1]
