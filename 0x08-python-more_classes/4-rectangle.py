@@ -72,4 +72,4 @@ class Rectangle:
 
     def __repr__(self):
         """return string rep of rectangle for production"""
-        return "Rectangle((:d), (:d))".format(self.__width, self.__height)
+        return "Rectangle({:d}, {:d})".format(self.__width, self.__height)
