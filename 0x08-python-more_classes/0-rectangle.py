@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""module for a triangle"""
+"""module for a rectangle"""
 
 
 class Rectangle:
