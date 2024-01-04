@@ -9,8 +9,10 @@ class Rectangle:
 
         Args:
             width: rectangel width
+            height: rectangle height
         """
         self.width = width
+        self.height = height
 
     @property
     def width(self):
