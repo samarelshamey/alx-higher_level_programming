@@ -1,0 +1,73 @@
+`2-matrix_divided` module
+-------------------------
+
+Using matrix_divided
+--------------------
+
+Import module:
+    >>> matrix_divided = __import__('2-matrix_divided').matrix_divided
+
+Test matrix:
+
+	>>> matrix_divided([[3, 6, 9], [12, 6, 3]], 3)
+	[[1.0, 2.0, 3.0], [4.0, 2.0, 1.0]]
+
+Test unmodified matrix:
+
+	>>> mtrx = [[3, 6, 9], [1, 2, 3]]
+    	>>> matrix_divided(mtrx, 2)
+    	[[1.5, 3.0, 4.5], [0.5, 1.0, 1.5]]
+    	>>> mtrx[1][1]
+    	2
+
+Test one element:
+
+	>>> matrix_divided([[4]], 2)
+	[[2.0]]
+
+Test divide by negative:
+
+	>>> matrix_divided([[12, 18, 9], [1, 2, 3]], -3)
+	[[-4.0, -6.0, -3.0], [-0.33, -0.67, -1.0]]
+
+Test divide by zero:
+
+	>>> matrix_divided([[12, 18, 8], [1, 2, 3]], 0)
+	Traceback (most recent call last):
+	...
+	ZeroDivisionError: division by zero
+
+Test empty matrix:
+
+	>>> matrix_divided([[]], 10)
+	Traceback (most recent call last):
+	...
+	TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+Test first arg none:
+
+	>>> matrix_divided(none, 1)
+	Traceback (most recent call last):
+	...
+	NameError: name 'none' is not defined
+
+Test with string element:
+
+	>>> matrix_divided([[12, 18, 8], [1, "wrong", 3]], 0)
+	Traceback (most recent call last):
+        ...
+	TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+Test divide by string:
+
+	>>> matrix_divided([[12, 18, 8], [1, 2, 3]], "wrong")
+	Traceback (most recent call last):
+        ...
+	TypeError: div must be a number
+
+Test missing arg:
+
+	>>> matrix_divided()
+	Traceback (most recent call last):
+        ...
+	TypeError: matrix_divided() missing 2 required positional arguments: 'matrix' and 'div'

@@ -1,0 +1,80 @@
+5-text_indentation
+-------------------
+
+using 5-text_indentation
+------------------------
+
+Import module:
+    >>> text_indentation = __import__('5-text_indentation').text_indentation
+
+Test no delimeter:
+
+	>>> text_indentation("hello from the othe side")
+	hello from the othe side
+
+Test (:):
+
+	>>> text_indentation("good: morning")
+	good:
+	<BLANKLINE>
+	morning
+
+Test newline:
+
+	>>> text_indentation("\n")
+	<BLANKLINE>
+
+Test all delimeters:
+
+	>>> text_indentation("Hello: how are you? bye. friend")
+	Hello:
+    	<BLANKLINE>
+    	how are you?
+    	<BLANKLINE>
+    	bye.
+    	<BLANKLINE>
+    	friend
+
+Test all delimeters with spaces:
+
+	>>> text_indentation("Hello  :  how are you	?	 bye. friend")
+        Hello:
+        <BLANKLINE>
+        how are you?
+        <BLANKLINE>
+        bye.
+        <BLANKLINE>
+        friend
+
+Test just delimeters:
+    
+	>>> text_indentation(".?:")
+    	.
+    	<BLANKLINE>
+    	?
+    	<BLANKLINE>
+    	:
+    	<BLANKLINE>
+
+Test str with space:
+
+	>>> text_indentation("hello        ")
+	hello
+
+Test str with before space:
+
+	>>> text_indentation("		hello")
+	hello
+
+Test empty str:
+
+	>>> text_indentation("")
+
+Test integer:
+
+	>>> text_indentation(23)
+	Traceback (most recent call last):
+	...
+	TypeError: text must be a string
+
+
