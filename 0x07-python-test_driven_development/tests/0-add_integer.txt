@@ -80,7 +80,7 @@ Test invalid first arg:
 	...
 	TypeError: a must be an integer
 
-Test invalid secon arg:
+Test invalid second arg:
 
 	>>> add_integer(0, None)
 	Traceback (most recent call last):
@@ -100,3 +100,24 @@ Test two string:
 	Traceback (most recent call last):
 	...
 	TypeError: a must be an integer
+
+Test inf:
+
+	>>> add_integer(float('inf'), float('-inf'))
+	Traceback (most recent call last):
+	...
+	OverflowError: cannot convert float infinity to integer
+
+Test nan:
+
+	>>> add_integer(0, float('nan'))
+	Traceback (most recent call last):
+        ...
+	ValueError: cannot convert float NaN to integer
+
+Test overflow:
+
+	>>> add_integer(float('inf'), 10)
+	Traceback (most recent call last):
+        ...
+	OverflowError: cannot convert float infinity to integer
