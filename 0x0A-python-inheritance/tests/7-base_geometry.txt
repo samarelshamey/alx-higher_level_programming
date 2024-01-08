@@ -1,0 +1,139 @@
+7-base_geometry module
+----------------------
+
+using 7-base_geometry
+---------------------
+
+Import function from module:
+	>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+
+Test class type:
+
+	>>> b = BaseGeometry()
+	>>> type(b) == BaseGeometry
+    	True
+
+integer_validator(self, name, value) testcases:
+-----------------------------------------------
+
+Test method type:
+
+	>>> type(BaseGeometry.__dict__['integer_validator'])
+	<class 'function'>
+
+Class with no arg call method:
+
+	>>> b.__class__.integer_validator()
+    	Traceback (most recent call last):
+    	TypeError: integer_validator() missing 3 required positional arguments: 'self', 'name', and 'value'
+
+Test 0 args:
+
+	>>> b.integer_validator()
+	Traceback (most recent call last):
+	TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
+
+Test 3 args:
+
+	>>> b.integer_validator(2, 2, 2)
+	Traceback (most recent call last):
+    	TypeError: integer_validator() takes 3 positional arguments but 4 were given
+
+Test int value:
+
+	>>> b.integer_validator("right", 10)
+
+Test float value:
+
+	>>> b.integer_validator("wrong", 6.9)
+	Traceback (most recent call last):
+    	TypeError: wrong must be an integer
+
+Test float .0 value:
+
+	>>> b.integer_validator("wrong", 6.0)
+        Traceback (most recent call last):
+        TypeError: wrong must be an integer
+
+Test boolean value:
+
+	>>> b.integer_validator("wrong", True)
+        Traceback (most recent call last):
+        TypeError: wrong must be an integer
+
+Test list value:
+
+	>>> b.integer_validator("wrong", [1, 5, 9])
+        Traceback (most recent call last):
+        TypeError: wrong must be an integer
+
+Test str value:
+
+	>>> b.integer_validator("wrong", "string")
+        Traceback (most recent call last):
+        TypeError: wrong must be an integer
+
+Test None value:
+
+	>>> b.integer_validator("wrong", None)
+        Traceback (most recent call last):
+        TypeError: wrong must be an integer
+
+Test 0 value:
+
+	>>> b.integer_validator("wrong", 0)
+        Traceback (most recent call last):
+	ValueError: wrong must be greater than 0
+
+Test negative value:
+
+	>>> b.integer_validator("wrong", -30)
+        Traceback (most recent call last):
+	ValueError: wrong must be greater than 0
+
+Test tuple value:
+
+	>>> b.integer_validator("wrong", (1, 2, 3))
+        Traceback (most recent call last):
+        TypeError: wrong must be an integer
+
+Test dict value:
+
+	>>> b.integer_validator("wrong", {1, 2, 3})
+        Traceback (most recent call last):
+        TypeError: wrong must be an integer
+
+Test none name:
+
+	>>> b.integer_validator(None, 10)
+
+Test empty name:
+
+	>>> b.integer_validator("", 10)
+	
+
+area() Method testcases:
+------------------------
+
+Test method type:
+
+	>>> type(BaseGeometry.__dict__['area'])
+	<class 'function'>
+
+Class with no arg call method:
+
+	>>> b.__class__.area()
+	Traceback (most recent call last):
+	TypeError: area() missing 1 required positional argument: 'self'
+
+Test area method with 1 arg:
+
+	>>> b.area(10)
+	Traceback (most recent call last):
+	TypeError: area() takes 1 positional argument but 2 were given
+
+Test basic area method:
+
+	>>> b.area()
+	Traceback (most recent call last):
+	Exception: area() is not implemented
