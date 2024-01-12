@@ -39,20 +39,20 @@ class Base:
         from models.rectangle import Rectangle
         from models.square import Square
         if cls is Rectangle:
-            n = Rectangle(1, 1)
+            new_instance = Rectangle(1, 1)
         elif cls is Square:
-            n = Square(1)
+            new_instance = Square(1)
         else:
-            n = None
-        n.update(**dictionary)
-        return n
+            new_instance = None
+        new_instance.update(**dictionary)
+        return new_instance
 
     @classmethod
     def load_from_file(cls):
         filename = cls.__name__ + ".json"
         try:
-            with open(filename, mode="r", encoding="utf-8") as f:
-                json_list = f.read()
+            with open(filename, mode="r", encoding="utf-8") as file:
+                json_list = file.read()
                 python_list = cls.from_json_string(json_list)
                 return [cls.create(**obj) for obj in python_list]
         except FileNotFoundError:
