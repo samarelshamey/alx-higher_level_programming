@@ -2,6 +2,7 @@
 
 """defines base class"""
 from json import dumps, loads
+import turtle
 
 
 class Base:
@@ -10,6 +11,7 @@ class Base:
     __nb_objects = 0
 
     def __init__(self, id=None):
+        """initialize new base"""
         if id is not None:
             self.id = id
         else:
@@ -43,23 +45,21 @@ class Base:
     @classmethod
     def create(cls, **dictionary):
         """loads instance from dict"""
-        if cls.__name__ == "Rectangle":
-            from models.rectangle import Rectangle
-            new_instance = Rectangle(1, 1)
-        elif cls.__name__ == "Square":
-            from models.square import Square
-            new_instance = Square(1)
-        else:
-            new_instance = None
-        new_instance.update(**dictionary)
-        return new_instance
+        if dictionary and dictionary != {}:
+            if cls.__name__ == "Rectangle":
+                new = cls(1, 1)
+            else:
+                new = cls(1)
+            new.update(**dictionary)
+            return new
 
     @classmethod
     def load_from_file(cls):
         """loads str from file"""
-        from os import path
-        file = "{}.json".format(cls.__name__)
-        if not path.isfile(file):
+        filename = str(cls.__name__) + ".json"
+        try:
+            with open(filename, "r") as jsonfile:
+                list_dicts = Base.from_json_string(jsonfile.read())
+                return [cls.create(**d) for d in list_dicts]
+        except IOError:
             return []
-        with open(file, "r", encoding="utf-8") as f:
-            return [cls.create(**d) for d in cls.from_json_string(f.read())]
