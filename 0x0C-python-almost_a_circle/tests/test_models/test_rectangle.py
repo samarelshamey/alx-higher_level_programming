@@ -159,7 +159,7 @@ given"
         rec = Rectangle(3, 5)
         attrs = ["x", "y"]
         for attr in attrs:
-            strng = "{} must be > 0".format(attr)
+            strng = "{} must be >= 0".format(attr)
             with self.assertRaises(ValueError) as exc:
                 setattr(rec, attr, -(randrange(10) + 1))
             self.assertEqual(str(exc.exception), strng)
@@ -170,7 +170,7 @@ given"
         for attr in attrs:
             strng = "{} must be > 0".format(attr)
             with self.assertRaises(ValueError) as exc:
-                setattr(r, attribute, 0)
+                setattr(rec, attr, 0)
             self.assertEqual(str(exc.exception), strng)
 
     def test_property(self):
@@ -199,8 +199,8 @@ given"
         self.assertEqual(rec.area(), 30)
         wid = randrange(10) + 1
         heigh = randrange(10) + 1
-        r.width = wid
-        r.height = heigh
+        rec.width = wid
+        rec.height = heigh
         self.assertEqual(rec.area(), wid * heigh)
         w = randrange(10) + 1
         h = randrange(10) + 1
