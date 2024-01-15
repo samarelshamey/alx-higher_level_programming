@@ -104,7 +104,7 @@ given"
 
         rec = Rectangle(9, 15, 30, 20)
         ar = {'_Rectangle__height': 15, '_Rectangle__width': 9,
-             '_Rectangle__x': 30, '_Rectangle__y': 20, 'id': 12}
+             '_Rectangle__x': 30, '_Rectangle__y': 20, 'id': 2}
         self.assertEqual(rec.__dict__, ar)
 
         rec = Rectangle(5, 10, 15, 20, 98)
