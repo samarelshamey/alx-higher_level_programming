@@ -136,8 +136,13 @@ given"
         self.assertEqual(rec.x, 100)
         self.assertEqual(rec.y, 105)
 
+    def invalid_types(self):
+        typ = (3.14, -1.1, float('inf'), float('-inf'), True, "str", (2,),
+               [4], {5}, {6: 7}, None)
+        return typ
+
     def test_type(self):
-        rec = Rectangle(3, 5)
+        rec = Rectangle(1, 2)
         attrs = ["x", "y", "width", "height"]
         for attr in attrs:
             strng = "{} must be an integer".format(attr)
@@ -228,4 +233,117 @@ given"
         self.assertEqual(str(exc.exception), strng)
 
     
+    def test_display2(self):
+        rec = Rectangle(1, 1)
+        f = io.StringIO()
+        with redirect_stdout(f):
+            rec.display()
+        strng = "#\n"
+        self.assertEqual(f.getvalue(), strng)
+        rec.width = 3
+        rec.height = 5
+        f = io.StringIO()
+        with redirect_stdout(f):
+            rec.display()
+        strng = "\
+###\n\
+###\n\
+###\n\
+###\n\
+###\n\
+"
+        self.assertEqual(f.getvalue(), strng)
 
+        rec = Rectangle(5, 6, 7, 8)
+        f = io.StringIO()
+        with redirect_stdout(f):
+            rec.display()
+        strng = """
+
+
+
+
+
+
+
+       #####
+       #####
+       #####
+       #####
+       #####
+       #####
+"""
+        self.assertEqual(f.getvalue(), strng)
+        rec = Rectangle(9, 8)
+        f = io.StringIO()
+        with redirect_stdout(f):
+            rec.display()
+        strng = """\
+#########
+#########
+#########
+#########
+#########
+#########
+#########
+#########
+"""
+        self.assertEqual(f.getvalue(), strng)
+
+        rec = Rectangle(1, 1, 10, 10)
+        f = io.StringIO()
+        with redirect_stdout(f):
+            rec.display()
+        strng = """\
+
+
+
+
+
+
+
+
+
+
+          #
+"""
+        self.assertEqual(f.getvalue(), strng)
+
+        rec = Rectangle(5, 5)
+        f = io.StringIO()
+        with redirect_stdout(f):
+            rec.display()
+        strng = """\
+#####
+#####
+#####
+#####
+#####
+"""
+        self.assertEqual(f.getvalue(), strng)
+
+        rec = Rectangle(5, 3, 5)
+        f = io.StringIO()
+        with redirect_stdout(f):
+            rec.display()
+        strng = """\
+     #####
+     #####
+     #####
+"""
+        self.assertEqual(f.getvalue(), strng)
+
+        rec = Rectangle(5, 3, 0, 4)
+        f = io.StringIO()
+        with redirect_stdout(f):
+            rec.display()
+        strng = """\
+
+
+
+
+#####
+#####
+#####
+"""
+        self.assertEqual(f.getvalue(), strng)
