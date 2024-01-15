@@ -18,13 +18,15 @@ class Base:
 
     @staticmethod
     def to_json_string(list_dictionaries):
-        if list_dictionaries is None or len(list_dictionaries) == 0:
+        """json file dictionary"""
+        if list_dictionaries is None or not list_dictionaries:
             return "[]"
         else:
             return dumps(list_dictionaries)
 
     @classmethod
     def save_to_file(cls, list_objs):
+        """saves json to a file"""
         if list_objs is not None:
             list_objs = [obj.to_dictionary() for obj in list_objs]
         with open("{}.json".format(cls.__name__), "w", encoding="utf-8") as f:
@@ -32,6 +34,7 @@ class Base:
 
     @staticmethod
     def from_json_string(json_string):
+        """unjson dictionary"""
         if json_string is None or not json_string:
             return []
         else:
@@ -39,6 +42,7 @@ class Base:
 
     @classmethod
     def create(cls, **dictionary):
+        """loads instance from dict"""
         if cls.__name__ == "Rectangle":
             from models.rectangle import Rectangle
             new_instance = Rectangle(1, 1)
@@ -52,11 +56,10 @@ class Base:
 
     @classmethod
     def load_from_file(cls):
-        filename = cls.__name__ + ".json"
-        try:
-            with open(filename, mode="r", encoding="utf-8") as file:
-                json_list = file.read()
-                python_list = cls.from_json_string(json_list)
-                return [cls.create(**obj) for obj in python_list]
-        except FileNotFoundError:
+        """loads str from file"""
+        from os import path
+        file = "{}.json".format(cls.__name__)
+        if not path.isfile(file):
             return []
+        with open(file, "r", encoding="utf-8") as f:
+            return [cls.create(**d) for d in cls.from_json_string(f.read())]
