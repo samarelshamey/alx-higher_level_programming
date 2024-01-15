@@ -19,7 +19,7 @@ class Rectangle(Base):
         return self.__width
 
     @width.setter
-    def width(self):
+    def width(self, value):
         self.error_msg("width", value, False)
         self.__width = value
 
