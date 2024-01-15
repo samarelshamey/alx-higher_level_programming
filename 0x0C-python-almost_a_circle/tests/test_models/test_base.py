@@ -9,22 +9,27 @@ from models.square import Square
 class TestBase(unittest.TestCase):
     '''Tests the Base class.'''
     def setUp(self):
+        """setupt"""
         Base._Base__nb_objects = 0
         pass
 
     def tearDown(self):
+        """clean after test"""
         pass
 
     def test_attribute(self):
+        """test nb_objects"""
         self.assertTrue(hasattr(Base, "_Base__nb_objects"))
 
     def test_construct(self):
+        """test construct"""
         with self.assertRaises(TypeError) as ex:
             Base.__init__()
         message = "__init__() missing 1 required positional argument: 'self'"
         self.assertEqual(str(ex.exception), message)
 
     def test_construct2(self):
+        """test construct arg"""
         with self.assertRaises(TypeError) as ex:
             Base.__init__(self, 1, 2)
         message = "__init__() takes from 1 to 2 positional arguments but 3 \
@@ -32,19 +37,23 @@ were given"
         self.assertEqual(str(ex.exception), message)
 
     def test_initialization(self):
+        """test if nb_objects is zero"""
         self.assertEqual(getattr(Base, "_Base__nb_objects"), 0)
 
     def test_instantiation(self):
+        """test instantiation"""
         base = Base()
         self.assertEqual(str(type(base)), "<class 'models.base.Base'>")
         self.assertEqual(base.__dict__, {"id": 1})
         self.assertEqual(base.id, 1)
 
     def test_id(self):
+        """test id"""
         base = Base()
         self.assertEqual(getattr(Base, "_Base__nb_objects"), base.id)
 
     def test_id2(self):
+        """test id"""
         base = Base()
         base = Base("Foo")
         base = Base(98)
@@ -52,26 +61,31 @@ were given"
         self.assertEqual(getattr(Base, "_Base__nb_objects"), base.id)
 
     def test_id3(self):
+        """test id"""
         base1 = Base()
         base2 = Base()
         self.assertEqual(base1.id + 1, base2.id)
 
     def test_id4(self):
+        """test id"""
         i = 8
         base = Base(i)
         self.assertEqual(base.id, i)
 
     def test_id5(self):
+        """test id"""
         i = "id"
         base = Base(i)
         self.assertEqual(base.id, i)
 
     def test_id6(self):
+        """test id"""
         i = 654
         base = Base(id=i)
         self.assertEqual(base.id, i)
 
     def test_to_json(self):
+        """test to json method"""
         with self.assertRaises(TypeError) as ex:
             Base.to_json_string()
         strng = "to_json_string() missing 1 required positional argument: \
@@ -140,6 +154,7 @@ were given"
         self.assertEqual(dictionary, json_dictionary)
 
     def test_save_to_file(self):
+        """test save to file method"""
         import os
         rec1 = Rectangle(9, 10, 2, 8)
         rec2 = Rectangle(2, 4)
@@ -183,6 +198,7 @@ were given"
             self.assertEqual(len(file.read()), 38)
 
     def test_from_json(self):
+        """test from json method"""
         with self.assertRaises(TypeError) as exc:
             Base.from_json_string()
         strng = "from_json_string() missing 1 required positional argument: \
@@ -233,6 +249,7 @@ were given"
         self.assertEqual(list1, list2)
 
     def test_create(self):
+        """test create method"""
         rec1 = Rectangle(4, 9, 3)
         rec1_dictionary = rec1.to_dictionary()
         rec2 = Rectangle.create(**rec1_dictionary)
@@ -241,6 +258,7 @@ were given"
         self.assertFalse(rec1 == rec2)
 
     def test_load_from_file(self):
+        """test load from file method"""
         rec1 = Rectangle(10, 7, 2, 8)
         rec2 = Rectangle(2, 4)
         list1 = [rec1, rec2]

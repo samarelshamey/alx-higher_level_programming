@@ -12,16 +12,20 @@ class TestRectangle(unittest.TestCase):
     """Test Rectangle class"""
 
     def setUp(self):
+        """setup"""
         Base._Base__nb_objects = 0
 
     def tearDown(self):
+        """teardown"""
         pass
 
     def test_class(self):
+        """test class type"""
         self.assertEqual(str(Rectangle),
                          "<class 'models.rectangle.Rectangle'>")
 
     def test_constrcut(self):
+        """test construct"""
         with self.assertRaises(TypeError) as exc:
             rec = Rectangle()
         strng = "__init__() missing 2 required positional arguments: 'width' \
@@ -29,6 +33,7 @@ and 'height'"
         self.assertEqual(str(exc.exception), strng)
 
     def test_construct2(self):
+        """test construct"""
         with self.assertRaises(TypeError) as exc:
             rec = Rectangle(5, 6, 7, 2, 4, 3)
         strng = "__init__() takes from 3 to 6 positional arguments but 7 were \
@@ -36,15 +41,18 @@ given"
         self.assertEqual(str(exc.exception), strng)
 
     def test_construct3(self):
+        """test construct"""
         with self.assertRaises(TypeError) as exc:
             rec = Rectangle(5)
         strng =  "__init__() missing 1 required positional argument: 'height'"
         self.assertEqual(str(exc.exception), strng)
 
     def test_inheritance(self):
+        """test inheritance"""
         self.assertTrue(issubclass(Rectangle, Base))
 
     def test_instantiation(self):
+        """test instantiation"""
         rec = Rectangle(30, 10)
         self.assertEqual(str(type(rec)), "<class 'models.rectangle.Rectangle'>")
         self.assertTrue(isinstance(rec, Base))
@@ -118,11 +126,13 @@ given"
         self.assertEqual(rec.__dict__, ar)
 
     def test_id(self):
+        """test id"""
         Base._Base__nb_objects = 77
         rec = Rectangle(3, 5)
         self.assertEqual(rec.id, 78)
 
     def test_properities(self):
+        """test porperty"""
         rec = Rectangle(7, 9)
         rec.width = 300
         rec.height = 200
@@ -137,11 +147,13 @@ given"
         self.assertEqual(rec.y, 105)
 
     def invalid_types(self):
+        """test types"""
         typ = (3.14, -1.1, float('inf'), float('-inf'), True, "str", (2,),
                [4], {5}, {6: 7}, None)
         return typ
 
     def test_type(self):
+        """test type"""
         rec = Rectangle(1, 2)
         attrs = ["x", "y", "width", "height"]
         for attr in attrs:
@@ -152,6 +164,7 @@ given"
                 self.assertEqual(str(exc.exception), strng)
 
     def test_negative(self):
+        """test negative"""
         rec = Rectangle(3, 5)
         attrs = ["width", "height"]
         for attr in attrs:
@@ -161,6 +174,7 @@ given"
             self.assertEqual(str(exc.exception), strng)
 
     def test_nagative2(self):
+        """test negative"""
         rec = Rectangle(3, 5)
         attrs = ["x", "y"]
         for attr in attrs:
@@ -170,6 +184,7 @@ given"
             self.assertEqual(str(exc.exception), strng)
 
     def test_zero(self):
+        """test zero"""
         rec = Rectangle(3, 5)
         attrs = ["width", "height"]
         for attr in attrs:
@@ -179,6 +194,7 @@ given"
             self.assertEqual(str(exc.exception), strng)
 
     def test_property(self):
+        """test property"""
         rec = Rectangle(1, 2)
         attrs = ["x", "y", "width", "height"]
         for attr in attrs:
@@ -187,6 +203,7 @@ given"
             self.assertEqual(getattr(rec, attr), num)
 
     def test_property2(self):
+        """test property"""
         rec = Rectangle(1, 2)
         rec.x = 0
         rec.y = 0
@@ -194,6 +211,7 @@ given"
         self.assertEqual(rec.y, 0)
 
     def test_area(self):
+        """test area method"""
         rec = Rectangle(5, 6)
         with self.assertRaises(TypeError) as exc:
             Rectangle.area()
@@ -226,6 +244,7 @@ given"
         self.assertEqual(rec3.area(), 56)
 
     def test_display(self):
+        """test display"""
         rec = Rectangle(9, 8)
         with self.assertRaises(TypeError) as exc:
             Rectangle.display()
@@ -234,6 +253,7 @@ given"
 
     
     def test_display2(self):
+        """test display"""
         rec = Rectangle(1, 1)
         f = io.StringIO()
         with redirect_stdout(f):
@@ -349,6 +369,7 @@ given"
         self.assertEqual(f.getvalue(), strng)
 
     def test_no_args(self):
+        """test no arguments"""
         rec = Rectangle(5, 2)
         with self.assertRaises(TypeError) as exc:
             Rectangle.__str__()
@@ -356,6 +377,7 @@ given"
         self.assertEqual(str(exc.exception), strng)
 
     def test_str(self):
+        """test string"""
         rec = Rectangle(5, 2)
         strng = '[Rectangle] (1) 0/0 - 5/2'
         self.assertEqual(str(rec), strng)
@@ -376,6 +398,7 @@ given"
         self.assertEqual(str(rec2), "[Rectangle] (1) 1/0 - 5/5")
 
     def test_update(self):
+        """test update method"""
         rec = Rectangle(5, 2)
         with self.assertRaises(TypeError) as exc:
             Rectangle.update()
@@ -387,6 +410,7 @@ given"
         self.assertEqual(rec.__dict__, d)
 
     def test_uodate2(self):
+        """test update method"""
         rec = Rectangle(5, 2)
         d = rec.__dict__.copy()
 
@@ -411,6 +435,7 @@ given"
         self.assertEqual(rec.__dict__, d)
 
     def test_update3(self):
+        """test update method"""
         rec = Rectangle(5, 2)
         d = rec.__dict__.copy()
 
@@ -439,6 +464,7 @@ given"
         self.assertEqual(str(exc.exception), strng)
 
     def test_update3(self):
+        """test update method"""
         rec = Rectangle(5, 2)
         d = rec.__dict__.copy()
 
@@ -463,6 +489,7 @@ given"
         self.assertEqual(rec.__dict__, d)
 
     def test_update5(self):
+        """test update method"""
         rec = Rectangle(5, 2)
         d = rec.__dict__.copy()
 
@@ -525,6 +552,7 @@ given"
         self.assertEqual(str(rec1), "[Rectangle] (89) 4/5 - 2/3")
 
     def test_dict(self):
+        """test dictionary"""
         with self.assertRaises(TypeError) as exc:
             Rectangle.to_dictionary()
         strng = "to_dictionary() missing 1 required positional argument: 'self'"
