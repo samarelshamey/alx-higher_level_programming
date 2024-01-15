@@ -26,7 +26,7 @@ class Base:
     @classmethod
     def save_to_file(cls, list_objs):
         if list_objs is not None:
-            list_objs = [x.to_dictionary() for x in list_objs]
+            list_objs = [obj.to_dictionary() for obj in list_objs]
         with open("{}.json".format(cls.__name__), "w", encoding="utf-8") as f:
             f.write(cls.to_json_string(list_objs))
 
@@ -39,11 +39,11 @@ class Base:
 
     @classmethod
     def create(cls, **dictionary):
-        from models.rectangle import Rectangle
-        from models.square import Square
-        if cls is Rectangle:
+        if cls.__name__ == "Rectangle":
+            from models.rectangle import Rectangle
             new_instance = Rectangle(1, 1)
-        elif cls is Square:
+        elif cls.__name__ == "Square":
+            from models.square import Square
             new_instance = Square(1)
         else:
             new_instance = None
