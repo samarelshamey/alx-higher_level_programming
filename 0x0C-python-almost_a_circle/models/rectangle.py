@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''Module for Rectangle class.'''
+'''Module for Rectangle class'''
 from models.base import Base
 
 
@@ -16,6 +16,7 @@ class Rectangle(Base):
 
     @property
     def width(self):
+        """rectangle width"""
         return self.__width
 
     @width.setter
@@ -25,6 +26,7 @@ class Rectangle(Base):
 
     @property
     def height(self):
+        """rectangle height"""
         return self.__height
 
     @height.setter
@@ -34,6 +36,7 @@ class Rectangle(Base):
 
     @property
     def x(self):
+        """x of rectangle"""
         return self.__x
 
     @x.setter
@@ -43,6 +46,7 @@ class Rectangle(Base):
 
     @property
     def y(self):
+        """y of rectangle"""
         return self.__y
 
     @y.setter
@@ -51,6 +55,7 @@ class Rectangle(Base):
         self.__y = value
 
     def error_msg(self, name, value, eq=True):
+        """method to validate value and raise errors"""
         if type(value) != int:
             raise TypeError("{} must be an integer".format(name))
         if eq and value < 0:
@@ -59,19 +64,23 @@ class Rectangle(Base):
             raise ValueError("{} must be > 0".format(name))
 
     def area(self):
+        """area of rectangle"""
         return self.width * self.height
 
     def display(self):
+        """print str represntation of rectangle"""
         print("\n" * self.y, end="")
         for _ in range(self.__height):
             print(" " * self.x, end="")
             print("#" * self.__width)
 
     def __str__(self):
+        """return str"""
         return "[Rectangle] ({:d}) {:d}/{:d} - {:d}/{:d}".\
                 format(self.id, self.x, self.y, self.width, self.height)
 
     def update_args(self, id=None, width=None, height=None, x=None, y=None):
+        """update instance attribute """
         if id is not None:
             self.id = id
         if width is not None:
@@ -84,11 +93,13 @@ class Rectangle(Base):
             self.y = y
 
     def update(self, *args, **kwargs):
+        """update instance"""
         if args:
             self.update_args(*args)
         elif kwargs:
             self.update_args(**kwargs)
 
     def to_dictionary(self):
-        return {"x": self.__x, "y": self.__y, "id": self.id,
-                "height": self.__height, "width": self.__width}
+        """return dictionary"""
+        return {"id": self.id, "width": self.__width, "height": self.__height,
+                "x": self.__x, "y": self.__y}
