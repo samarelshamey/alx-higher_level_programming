@@ -135,3 +135,97 @@ given"
         self.assertEqual(rec.height, 200)
         self.assertEqual(rec.x, 100)
         self.assertEqual(rec.y, 105)
+
+    def test_type(self):
+        rec = Rectangle(3, 5)
+        attrs = ["x", "y", "width", "height"]
+        for attr in attrs:
+            strng = "{} must be an integer".format(attr)
+            for invalid_type in self.invalid_types():
+                with self.assertRaises(TypeError) as exc:
+                    setattr(rec, attr, invalid_type)
+                self.assertEqual(str(exc.exception), strng)
+
+    def test_negative(self):
+        rec = Rectangle(3, 5)
+        attrs = ["width", "height"]
+        for attr in attrs:
+            strng = "{} must be > 0".format(attr)
+            with self.assertRaises(ValueError) as exc:
+                setattr(rec, attr, -(randrange(10) + 1))
+            self.assertEqual(str(exc.exception), strng)
+
+    def test_nagative2(self):
+        rec = Rectangle(3, 5)
+        attrs = ["x", "y"]
+        for attr in attrs:
+            strng = "{} must be > 0".format(attr)
+            with self.assertRaises(ValueError) as exc:
+                setattr(rec, attr, -(randrange(10) + 1))
+            self.assertEqual(str(exc.exception), strng)
+
+    def test_zero(self):
+        rec = Rectangle(3, 5)
+        attrs = ["width", "height"]
+        for attr in attrs:
+            strng = "{} must be > 0".format(attr)
+            with self.assertRaises(ValueError) as exc:
+                setattr(r, attribute, 0)
+            self.assertEqual(str(exc.exception), strng)
+
+    def test_property(self):
+        rec = Rectangle(1, 2)
+        attrs = ["x", "y", "width", "height"]
+        for attr in attrs:
+            num = randrange(10) + 1
+            setattr(rec, attr, num)
+            self.assertEqual(getattr(rec, attr), num)
+
+    def test_property2(self):
+        rec = Rectangle(1, 2)
+        rec.x = 0
+        rec.y = 0
+        self.assertEqual(rec.x, 0)
+        self.assertEqual(rec.y, 0)
+
+    def test_area(self):
+        rec = Rectangle(5, 6)
+        with self.assertRaises(TypeError) as exc:
+            Rectangle.area()
+        strng = "area() missing 1 required positional argument: 'self'"
+        self.assertEqual(str(exc.exception), strng)
+
+        rec = Rectangle(5, 6)
+        self.assertEqual(rec.area(), 30)
+        wid = randrange(10) + 1
+        heigh = randrange(10) + 1
+        r.width = wid
+        r.height = heigh
+        self.assertEqual(rec.area(), wid * heigh)
+        w = randrange(10) + 1
+        h = randrange(10) + 1
+        rec = Rectangle(w, h, 7, 8, 9)
+        self.assertEqual(rec.area(), w * h)
+        w = randrange(10) + 1
+        h = randrange(10) + 1
+        rec = Rectangle(w, h, y=7, x=8, id=9)
+        self.assertEqual(rec.area(), w * h)
+
+        rec1 = Rectangle(3, 2)
+        self.assertEqual(rec1.area(), 6)
+
+        rec2 = Rectangle(2, 10)
+        self.assertEqual(rec2.area(), 20)
+
+        rec3 = Rectangle(8, 7, 0, 0, 12)
+        self.assertEqual(rec3.area(), 56)
+
+    def test_display(self):
+        rec = Rectangle(9, 8)
+        with self.assertRaises(TypeError) as exc:
+            Rectangle.display()
+        strng = "display() missing 1 required positional argument: 'self'"
+        self.assertEqual(str(exc.exception), strng)
+
+    
+
