@@ -347,3 +347,210 @@ given"
 #####
 """
         self.assertEqual(f.getvalue(), strng)
+
+    def test_no_args(self):
+        rec = Rectangle(5, 2)
+        with self.assertRaises(TypeError) as exc:
+            Rectangle.__str__()
+        strng = "__str__() missing 1 required positional argument: 'self'"
+        self.assertEqual(str(exc.exception), strng)
+
+    def test_str(self):
+        rec = Rectangle(5, 2)
+        strng = '[Rectangle] (1) 0/0 - 5/2'
+        self.assertEqual(str(rec), strng)
+
+        rec = Rectangle(1, 1, 1)
+        strng = '[Rectangle] (2) 1/0 - 1/1'
+        self.assertEqual(str(rec), strng)
+
+        rec = Rectangle(3, 4, 5, 6)
+        strng = '[Rectangle] (3) 5/6 - 3/4'
+        self.assertEqual(str(rec), strng)
+
+        Base._Base__nb_objects = 0
+        rec1 = Rectangle(4, 6, 2, 1, 12)
+        self.assertEqual(str(rec1), "[Rectangle] (12) 2/1 - 4/6")
+
+        rec2 = Rectangle(5, 5, 1)
+        self.assertEqual(str(rec2), "[Rectangle] (1) 1/0 - 5/5")
+
+    def test_update(self):
+        rec = Rectangle(5, 2)
+        with self.assertRaises(TypeError) as exc:
+            Rectangle.update()
+        strng = "update() missing 1 required positional argument: 'self'"
+        self.assertEqual(str(exc.exception), strng)
+
+        d = rec.__dict__.copy()
+        rec.update()
+        self.assertEqual(rec.__dict__, d)
+
+    def test_uodate2(self):
+        rec = Rectangle(5, 2)
+        d = rec.__dict__.copy()
+
+        rec.update(10)
+        d["id"] = 10
+        self.assertEqual(rec.__dict__, d)
+
+        rec.update(10, 5)
+        d["_Rectangle__width"] = 5
+        self.assertEqual(rec.__dict__, d)
+
+        rec.update(10, 5, 17)
+        d["_Rectangle__height"] = 17
+        self.assertEqual(rec.__dict__, d)
+
+        rec.update(10, 5, 17, 20)
+        d["_Rectangle__x"] = 20
+        self.assertEqual(rec.__dict__, d)
+
+        rec.update(10, 5, 17, 20, 25)
+        d["_Rectangle__y"] = 25
+        self.assertEqual(rec.__dict__, d)
+
+    def test_update3(self):
+        rec = Rectangle(5, 2)
+        d = rec.__dict__.copy()
+
+        rec.update(10)
+        d["id"] = 10
+        self.assertEqual(rec.__dict__, d)
+
+        with self.assertRaises(ValueError) as exc:
+            rec.update(10, -5)
+        strng = "width must be > 0"
+        self.assertEqual(str(exc.exception), strng)
+
+        with self.assertRaises(ValueError) as exc:
+            rec.update(10, 5, -17)
+        strng = "height must be > 0"
+        self.assertEqual(str(exc.exception), strng)
+
+        with self.assertRaises(ValueError) as exc:
+            rec.update(10, 5, 17, -20)
+        strng = "x must be >= 0"
+        self.assertEqual(str(exc.exception), strng)
+
+        with self.assertRaises(ValueError) as exc:
+            rec.update(10, 5, 17, 20, -25)
+        strng = "y must be >= 0"
+        self.assertEqual(str(exc.exception), strng)
+
+    def test_update3(self):
+        rec = Rectangle(5, 2)
+        d = rec.__dict__.copy()
+
+        rec.update(id=10)
+        d["id"] = 10
+        self.assertEqual(rec.__dict__, d)
+
+        rec.update(width=5)
+        d["_Rectangle__width"] = 5
+        self.assertEqual(rec.__dict__, d)
+
+        rec.update(height=17)
+        d["_Rectangle__height"] = 17
+        self.assertEqual(rec.__dict__, d)
+
+        rec.update(x=20)
+        d["_Rectangle__x"] = 20
+        self.assertEqual(rec.__dict__, d)
+
+        rec.update(y=25)
+        d["_Rectangle__y"] = 25
+        self.assertEqual(rec.__dict__, d)
+
+    def test_update5(self):
+        rec = Rectangle(5, 2)
+        d = rec.__dict__.copy()
+
+        rec.update(id=10)
+        d["id"] = 10
+        self.assertEqual(rec.__dict__, d)
+
+        rec.update(id=10, width=5)
+        d["_Rectangle__width"] = 5
+        self.assertEqual(rec.__dict__, d)
+
+        rec.update(id=10, width=5, height=17)
+        d["_Rectangle__height"] = 17
+        self.assertEqual(rec.__dict__, d)
+
+        rec.update(id=10, width=5, height=17, x=20)
+        d["_Rectangle__x"] = 20
+        self.assertEqual(rec.__dict__, d)
+
+        rec.update(id=10, width=5, height=17, x=20, y=25)
+        d["_Rectangle__y"] = 25
+        self.assertEqual(rec.__dict__, d)
+
+        rec.update(y=25, id=10, height=17, x=20, width=5)
+        self.assertEqual(rec.__dict__, d)
+
+        Base._Base__nb_objects = 0
+        rec1 = Rectangle(10, 10, 10, 10)
+        self.assertEqual(str(rec1), "[Rectangle] (1) 10/10 - 10/10")
+
+        rec1.update(height=1)
+        self.assertEqual(str(rec1), "[Rectangle] (1) 10/10 - 10/1")
+
+        rec1.update(width=1, x=2)
+        self.assertEqual(str(rec1), "[Rectangle] (1) 2/10 - 1/1")
+
+        rec1.update(y=1, width=2, x=3, id=89)
+        self.assertEqual(str(rec1), "[Rectangle] (89) 3/1 - 2/1")
+
+        rec1.update(x=1, height=2, y=3, width=4)
+        self.assertEqual(str(rec1), "[Rectangle] (89) 1/3 - 4/2")
+
+        Base._Base__nb_objects = 0
+        rec1 = Rectangle(10, 10, 10, 10)
+        self.assertEqual(str(rec1), "[Rectangle] (1) 10/10 - 10/10")
+
+        rec1.update(89)
+        self.assertEqual(str(rec1), "[Rectangle] (89) 10/10 - 10/10")
+
+        rec1.update(89, 2)
+        self.assertEqual(str(rec1), "[Rectangle] (89) 10/10 - 2/10")
+
+        rec1.update(89, 2, 3)
+        self.assertEqual(str(rec1), "[Rectangle] (89) 10/10 - 2/3")
+
+        rec1.update(89, 2, 3, 4)
+        self.assertEqual(str(rec1), "[Rectangle] (89) 4/10 - 2/3")
+
+        rec1.update(89, 2, 3, 4, 5)
+        self.assertEqual(str(rec1), "[Rectangle] (89) 4/5 - 2/3")
+
+    def test_dict(self):
+        with self.assertRaises(TypeError) as exc:
+            Rectangle.to_dictionary()
+        strng = "to_dictionary() missing 1 required positional argument: 'self'"
+        self.assertEqual(str(exc.exception), strng)
+
+        rec = Rectangle(1, 2)
+        d = {'x': 0, 'y': 0, 'width': 1, 'id': 1, 'height': 2}
+        self.assertEqual(rec.to_dictionary(), d)
+
+        rec = Rectangle(1, 2, 3, 4, 5)
+        d = {'x': 3, 'y': 4, 'width': 1, 'id': 5, 'height': 2}
+        self.assertEqual(rec.to_dictionary(), d)
+
+        rec.x = 10
+        rec.y = 20
+        rec.width = 30
+        rec.height = 40
+        d = {'x': 10, 'y': 20, 'width': 30, 'id': 5, 'height': 40}
+        self.assertEqual(rec.to_dictionary(), d)
+
+        rec1 = Rectangle(10, 2, 1, 9)
+        rec1_dictionary = rec1.to_dictionary()
+        rec2 = Rectangle(1, 1)
+        rec2.update(**rec1_dictionary)
+        self.assertEqual(str(rec1), str(rec2))
+        self.assertNotEqual(rec1, rec2)
+
+if __name__ == "__main__":
+    unittest.main()
