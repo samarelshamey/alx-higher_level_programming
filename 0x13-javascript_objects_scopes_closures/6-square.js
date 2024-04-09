@@ -1,7 +1,7 @@
 #!/usr/bin/node
-const Rectangle = require('./4-rectangle.js');
+const SquareX = require('./5-square.js');
 
-class Square extends Rectangle {
+class Square extends SquareX {
   charPrint (c) {
     if (c === undefined) {
       c = 'X';
