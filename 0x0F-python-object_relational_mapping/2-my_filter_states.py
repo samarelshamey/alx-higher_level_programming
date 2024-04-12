@@ -16,7 +16,7 @@ if __name__ == '__main__':
                            passwd=argv[2],
                            db=argv[3])
 
-    mycursor = mydb.cursor
+    mycursor = mydb.cursor()
     mycursor.execute("SELECT * FROM states WHERE \
                      name LIKE BINARY '{}' ORDER BY id ASC".format(argv[4]))
     myresult = mycursor.fetchall()
