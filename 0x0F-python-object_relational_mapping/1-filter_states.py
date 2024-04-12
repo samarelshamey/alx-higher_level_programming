@@ -1,7 +1,11 @@
 #!/usr/bin/python3
-"""module that lists all states from the database hbtn_0e_0_usa"""
+"""
+module that lists all states with a name starting with N (upper N)
+from the database hbtn_0e_0_usa
+"""
 import MySQLdb
 import sys
+
 
 if __name__ == '__main__':
     username = sys.argv[1]
@@ -19,8 +23,8 @@ if __name__ == '__main__':
         sys.exit(1)
 
     mycursor = mydb.cursor()
-    mycursor.execute("SELECT * FROM states
-                     WHERE name LIKE BINARY 'N%' ORDER BY id ASC")
+    mycursor.execute("SELECT * FROM states WHERE \
+                      name LIKE BINARY 'N%' ORDER BY id ASC")
     myresult = mycursor.fetchall()
 
     for x in myresult:
