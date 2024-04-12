@@ -23,7 +23,9 @@ if __name__ == '__main__':
         sys.exit(1)
 
     mycursor = mydb.cursor()
-    query = "SELECT * FROM cities WHERE name = %s ORDER BY cities.id ASC"
+    query = "SELECT cities.id, cities.name\
+            FROM cities join states ON cities.state_id = states.id\
+            WHERE states.name = %s ORDER BY cities.id ASC"
     mycursor.execute(query, (state_name,))
     myresult = mycursor.fetchall()
     for x in myresult:
