@@ -19,15 +19,14 @@ if __name__ == '__main__':
                                port=3306,
                                user=username,
                                passwd=password,
-                               db=database
-                               sname=state_name)
+                               db=database)
     except MySQLdb.Error as e:
         print("Error connecting to database: {}".format(e))
         sys.exit(1)
-    mycusrsor = mydb.cursor
-    mycursor.execute("SELECT * FROM states WHERE
-                     name LIKE BINARY '{}' ORDER BY id ASC".format(sname))
-    myresutl = mycursor.fetchall()
+    mycursor = mydb.cursor
+    mycursor.execute("SELECT * FROM states WHERE \
+                     name LIKE BINARY '{}' ORDER BY id ASC".format(state_name))
+    myresult = mycursor.fetchall()
     for x in myresult:
         print(x)
     mycursor.close()
