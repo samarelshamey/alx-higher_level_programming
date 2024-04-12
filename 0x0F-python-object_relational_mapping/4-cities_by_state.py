@@ -18,7 +18,7 @@ if __name__ == '__main__':
                                db=database)
     except MySQLdb.Error as e:
         print("Error connecting to database: {}".format(e))
-        mycursor = mydb.cursor()
-        mycursor.execute("SELECT * FROM cities ORDER BY id ASC")
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT * FROM cities ORDER BY id ASC")
     mycursor.close()
     mydb.close()
