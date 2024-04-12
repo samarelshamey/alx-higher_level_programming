@@ -22,3 +22,5 @@ if __name__ == '__main__':
     myresult = mycursor.fetchall()
     for x in myresult:
         print(x)
+    mycursor.close()
+    mydb.close()
