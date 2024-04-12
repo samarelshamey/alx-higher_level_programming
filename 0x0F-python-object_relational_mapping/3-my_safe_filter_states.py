@@ -12,7 +12,6 @@ if __name__ == '__main__':
     username = sys.argv[1]
     password = sys.argv[2]
     database = sys.argv[3]
-    state_name = sys.argv[4]
 
     try:
         mydb = MySQLdb.connect(hotsname="localhost",
@@ -25,8 +24,8 @@ if __name__ == '__main__':
         sys.exit(1)
 
         mycursor = mydb.cursor()
-        mycursor.execute("SELECT * FROM states WHERE name LIKE BINARY '{}'
-                         ORDER BY id ASC".format(state_name))
+        mycursor.execute("SELECT * FROM states WHERE name LIKE BINARY %(state_name)s
+                         ORDER BY id ASC", {'state_name: sys.argv[4]'})
         myresult = mycursor.fetchall()
         for x in myresult:
             print(x)
