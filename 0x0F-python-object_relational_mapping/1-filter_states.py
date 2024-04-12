@@ -9,8 +9,7 @@ if __name__ == '__main__':
     database = sys.argv[3]
 
     try:
-        mydb = MySQLdb.connect(
-                                host="localhost",
+        mydb = MySQLdb.connect(host="localhost",
                                 port=3306,
                                 user=username,
                                 passwd=password,
@@ -21,7 +20,7 @@ if __name__ == '__main__':
 
     mycursor = mydb.cursor()
     mycursor.execute("SELECT * FROM states
-                     WHERE name LIKE 'N%' ORDER BY id ASC")
+                     WHERE name LIKE BINARY 'N%' ORDER BY id ASC")
     myresult = mycursor.fetchall()
 
     for x in myresult:
