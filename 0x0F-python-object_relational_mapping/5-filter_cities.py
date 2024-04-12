@@ -23,12 +23,12 @@ if __name__ == '__main__':
         sys.exit(1)
 
     mycursor = mydb.cursor()
-    query = "SELECT cities.name\
+    query = "SELECT cities.id, cities.name\
             FROM cities JOIN states ON cities.state_id = states.id\
             WHERE states.name = %s ORDER BY cities.id ASC"
     mycursor.execute(query, (state_name,))
     myresult = mycursor.fetchall()
-    for x in myresult:
-        print(x)
+    if myresult is not None:
+        print(", ".join([x[1] for x in myresult]))
     mycursor.close()
     mydb.close()
