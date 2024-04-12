@@ -19,8 +19,11 @@ if __name__ == '__main__':
     except MySQLdb.Error as e:
         print("Error connecting to database: {}".format(e))
     mycursor = mydb.cursor()
-    mycursor.execute("SELECT cities.id, cities.name, states.name FROM cities
-                     JOIN states ON cities.state_id = states.id
+    mycursor.execute("SELECT cities.id, cities.name, states.name FROM cities\
+                     JOIN states ON cities.state_id = states.id\
                      ORDER BY cities.id ASC")
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        print(x)
     mycursor.close()
     mydb.close()
