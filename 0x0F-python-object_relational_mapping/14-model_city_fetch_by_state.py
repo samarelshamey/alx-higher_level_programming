@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-prints all City objects from the database 
+prints all City objects from the database
 """
 import sys
 from model_state import Base, State
