@@ -7,7 +7,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 
 
 class City(Base):
-    """state class
+    """city class
     Attributes:
         __tablename__ (str): table name
         id (int): city id
@@ -16,5 +16,5 @@ class City(Base):
     """
     __tablename__ = 'cities'
     id = Column(Integer, primary_key=True)
-    state_id = Column(Integer, foreign_key=('State.id'), nullable=False)
+    state_id = Column(Integer, ForeignKey=('states.id'), nullable=False)
     name = Column(String(128), nullable=False)
