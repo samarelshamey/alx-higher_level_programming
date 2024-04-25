@@ -2,11 +2,6 @@
 """module contain fin_peak method"""
 def find_peak(list_of_integers):
     """method to find a peak in unsorted integers"""
-    lst = list_of_integers
-    if not lst:
-        return None
-    peak = lst[0]
-    for num in lst:
-        if num > peak:
-            peak = num
-    return peak
+    if list_of_integers:
+        list_of_integers.sort(reverse=True)
+        return list_of_integers[0]
