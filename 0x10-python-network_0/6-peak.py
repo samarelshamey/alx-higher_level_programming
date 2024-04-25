@@ -3,6 +3,10 @@
 def find_peak(list_of_integers):
     """method to find a peak in unsorted integers"""
     lst = list_of_integers
-    if lst:
-        lst.sort(reverse=True)
-        return lst[0]
+    if not lst:
+        return None
+    peak = lst[0]
+    for num in lst:
+        if num > peak:
+            peak = num
+    return peak
