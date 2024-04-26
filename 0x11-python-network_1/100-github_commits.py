@@ -8,11 +8,14 @@ if __name__ == "__main__":
 
     repo = sys.argv[1]
     owner = sys.argv[2]
+    i = 0
     url = "https://api.github.com/repos/{}/{}/commits".format(owner, repo)
     req = requests.get(url)
-    js = req.json()[:10]
-    js.reverse()
+    js = req.json()
     for commit in js:
+        if i > 9:
+            break
         sha = commit.get('sha')
-        author_name = commit.get('commit').get('author').get('name')
-        print(f"{sha}: {author_name}")
+        author = commit.get('commit').get('author').get('name')
+        print("{}: {}".format(sha, author))
+        i += 1
