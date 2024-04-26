@@ -7,5 +7,5 @@ import urllib.request
 url = sys.argv[1]
 req = urllib.request.Request(url)
 with urllib.request.urlopen(req) as response:
-    X_Request_Id = response.headers['X-Request-Id']
-print(X_Request_Id)
+    req_id = response.headers['X-Request-Id']
+print(req_id)
