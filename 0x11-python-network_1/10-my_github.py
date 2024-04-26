@@ -9,9 +9,7 @@ if __name__ == "__main__":
 
     username = sys.argv[1]
     password = sys.argv[2]
-    url = 'https://api.github.com/user'
+    url = "https://api.github.com/user"
     req = get(url, auth=(username, password))
-    if req.status_code == 200:
-        user_info = req.json()
-        user_id = user_info.get('id')
-        print(user_id)
+    json = req.json()
+    print(json.get('id'))
