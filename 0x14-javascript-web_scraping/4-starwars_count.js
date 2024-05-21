@@ -1,12 +1,20 @@
 #!/usr/bin/node
 // script that prints the number of movies
 const request = require('request');
-const apiUrl = 'https://swapi-api.alx-tools.com/api/films/';
-request.get(apiUrl, function (error, response, body) {
+let n = 0;
+
+request.get(process.argv[2], function (error, response, body) {
   if (error) {
     console.error(error);
+  } else {
+    const content = JSON.parse(body);
+    content.results.forEach((film) => {
+      film.characters.forEach((character) => {
+        if (character.includes(18)) {
+          n += 1;
+        }
+      });
+    });
+    console.log(n);
   }
-  const filmsData = JSON.parse(body).results;
-  const moviesWithWedgeAntilles = filmsData.filter(film => film.characters.includes('https://swapi-api.alx-tools.com/api/people/18/'));
-  console.log(moviesWithWedgeAntilles.length);
 });
